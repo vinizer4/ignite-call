@@ -1,4 +1,11 @@
-import { Heading, Text, MultiStep, Button, TextArea } from '@ignite-ui/react'
+import {
+  Heading,
+  Text,
+  MultiStep,
+  Button,
+  TextArea,
+  Avatar,
+} from '@ignite-ui/react'
 import { Container, Header } from '../styles'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
@@ -46,6 +53,10 @@ export default function UpdateProfile() {
       <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
           <Text size="sm">Foto de perfil</Text>
+          <Avatar
+            src={session.data?.user.avatar_url}
+            alt={session.data?.user.name}
+          />
         </label>
 
         <label>
