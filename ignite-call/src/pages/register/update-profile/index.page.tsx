@@ -16,6 +16,8 @@ import { useSession } from 'next-auth/react'
 import { GetServerSideProps } from 'next'
 import { unstable_getServerSession } from 'next-auth'
 import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
+import { api } from '../../../lib/axios'
+import { useRouter } from 'next/router'
 
 const updateProfileFormSchema = z.object({
   bio: z.string(),
@@ -33,10 +35,17 @@ export default function UpdateProfile() {
   })
 
   const session = useSession()
+  const router = useRouter()
 
   console.log(session)
 
-  async function handleUpdateProfile(data: UpdateProfileData) {}
+  async function handleUpdateProfile(data: UpdateProfileData) {
+    await api.put('/users/profile', {
+      bio: data.bio,
+    })
+
+    await router.push(`/schedule/${session.data?.user.username}`)
+  }
 
   return (
     <Container>
